@@ -1,0 +1,13 @@
+version: '3.3'
+services:
+    application:
+        container_name: dto-handler_example_app
+        image: richcongress/php:7.3
+        volumes:
+            - .:/app:rw,cached
+            - ~/.composer:/home/application/.composer:cached
+        environment:
+            WEB_DOCUMENT_ROOT: /app/public
+            WEB_DOCUMENT_INDEX: index.php
+        ports:
+            - "81:80"
