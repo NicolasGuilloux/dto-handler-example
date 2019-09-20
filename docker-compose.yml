@@ -5,7 +5,6 @@ services:
         image: richcongress/php:7.3
         volumes:
             - .:/app:rw,cached
-            - ~/.composer:/home/application/.composer:cached
         environment:
             WEB_DOCUMENT_ROOT: /app/public
             WEB_DOCUMENT_INDEX: index.php
