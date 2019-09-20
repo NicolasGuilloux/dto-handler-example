@@ -15,7 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @author    Nicolas Guilloux <nicolas.guilloux@protonmail.com>
  * @copyright 2014 - 2019 RichCongress (https://www.richcongress.com)
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repositories\DummyEntityRepository")
  */
 class DummyEntity
 {

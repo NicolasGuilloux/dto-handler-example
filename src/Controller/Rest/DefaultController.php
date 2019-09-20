@@ -4,6 +4,7 @@ namespace App\Controller\Rest;
 
 use App\DataTransferObject\DummyDto;
 use App\Entity\DummyEntity;
+use App\Repositories\DummyEntityRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
@@ -25,16 +26,22 @@ class DefaultController extends AbstractFOSRestController
      * @Rest\Post("/rest/with-validation")
      *
      * @param DummyDto               $dummyDto
+     * @param DummyEntityRepository  $dummyEntityRepository
      * @param EntityManagerInterface $entityManager
      *
      * @return Response
      */
-    public function postWithValidationAction(DummyDto $dummyDto, EntityManagerInterface $entityManager): Response
-    {
+    public function postWithValidationAction(
+        DummyDto $dummyDto,
+        DummyEntityRepository $dummyEntityRepository,
+        EntityManagerInterface $entityManager
+    ): Response {
         $dummyEntity = DummyEntity::createFromDto($dummyDto);
 
         $entityManager->persist($dummyEntity);
         $entityManager->flush();
+
+        $dummyEntityRepository->deleteOldOnes(100);
 
         $view = new View($dummyEntity);
 
